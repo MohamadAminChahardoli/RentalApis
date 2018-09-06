@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbRentalHouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="T_City">
+    <Key>
+      <PropertyRef Name="CityCode" />
+    </Key>
+    <Property Name="CityCode" Type="int" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+    <Property Name="StateCode" Type="int" />
+  </EntityType>
+  <EntityType Name="T_Houses">
+    <Key>
+      <PropertyRef Name="HouseId" />
+    </Key>
+    <Property Name="HouseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseTitle" Type="nchar" MaxLength="10" />
+    <Property Name="HouseType" Type="tinyint" />
+    <Property Name="HouseZone" Type="nvarchar" MaxLength="100" />
+    <Property Name="HouseAddress" Type="nvarchar" MaxLength="300" />
+    <Property Name="HouseDescription" Type="nvarchar(max)" />
+    <Property Name="HouseFirstPicture" Type="nvarchar" MaxLength="100" />
+    <Property Name="HouseSecondPicture" Type="nvarchar" MaxLength="100" />
+    <Property Name="HouseThirdPicture" Type="nvarchar" MaxLength="100" />
+    <Property Name="HouseForthPicture" Type="nchar" MaxLength="10" />
+    <Property Name="HouseMortgage" Type="int" />
+    <Property Name="HouseRentPrice" Type="int" />
+    <Property Name="HousePhoneNumber" Type="nchar" MaxLength="11" />
+    <Property Name="HouseRegisteredDate" Type="datetime" />
+    <Property Name="HouseVisitedCount" Type="int" />
+    <Property Name="HouseBenefits" Type="nvarchar(max)" />
+    <Property Name="HouseLatitiud" Type="varchar" MaxLength="50" />
+    <Property Name="HouseLongitiud" Type="varchar" MaxLength="50" />
+    <Property Name="HouseGender" Type="tinyint" />
+    <Property Name="HouseSingleBed" Type="int" />
+    <Property Name="HouseDoubleBed" Type="int" />
+    <Property Name="HouseTripleBed" Type="int" />
+    <Property Name="HouseBedOfFour" Type="int" />
+    <Property Name="HouseBedOfSix" Type="int" />
+    <Property Name="HouseBedOfEight" Type="int" />
+    <Property Name="HouseBedOfTen" Type="int" />
+    <Property Name="HouseOwnerId" Type="int" />
+  </EntityType>
+  <EntityType Name="T_State">
+    <Key>
+      <PropertyRef Name="StateCode" />
+    </Key>
+    <Property Name="StateCode" Type="int" Nullable="false" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserLastName" Type="nvarchar" MaxLength="70" Nullable="false" />
+    <Property Name="UserMobileNumber" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="UserStateCode" Type="int" />
+    <Property Name="UserCityCode" Type="int" />
+    <Property Name="UserRole" Type="int" />
+    <Property Name="RegisteredDate" Type="datetime" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="UserPassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_T_City_T_State">
+    <End Role="T_State" Type="Self.T_State" Multiplicity="0..1" />
+    <End Role="T_City" Type="Self.T_City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_State">
+        <PropertyRef Name="StateCode" />
+      </Principal>
+      <Dependent Role="T_City">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_Houses_T_Users">
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
+    <End Role="T_Houses" Type="Self.T_Houses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="T_Houses">
+        <PropertyRef Name="HouseOwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbRentalHouseModelStoreContainer">
+    <EntitySet Name="T_City" EntityType="Self.T_City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Houses" EntityType="Self.T_Houses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_State" EntityType="Self.T_State" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Users" EntityType="Self.T_Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_T_City_T_State" Association="Self.FK_T_City_T_State">
+      <End Role="T_State" EntitySet="T_State" />
+      <End Role="T_City" EntitySet="T_City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_Houses_T_Users" Association="Self.FK_T_Houses_T_Users">
+      <End Role="T_Users" EntitySet="T_Users" />
+      <End Role="T_Houses" EntitySet="T_Houses" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

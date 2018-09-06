@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DbRentalHouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_City">
+          <Key>
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="CityCode" Type="int" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateCode" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Houses">
+          <Key>
+            <PropertyRef Name="HouseId" />
+          </Key>
+          <Property Name="HouseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HouseTitle" Type="nchar" MaxLength="10" />
+          <Property Name="HouseType" Type="tinyint" />
+          <Property Name="HouseZone" Type="nvarchar" MaxLength="100" />
+          <Property Name="HouseAddress" Type="nvarchar" MaxLength="300" />
+          <Property Name="HouseDescription" Type="nvarchar(max)" />
+          <Property Name="HouseFirstPicture" Type="nvarchar" MaxLength="100" />
+          <Property Name="HouseSecondPicture" Type="nvarchar" MaxLength="100" />
+          <Property Name="HouseThirdPicture" Type="nvarchar" MaxLength="100" />
+          <Property Name="HouseForthPicture" Type="nchar" MaxLength="10" />
+          <Property Name="HouseMortgage" Type="int" />
+          <Property Name="HouseRentPrice" Type="int" />
+          <Property Name="HousePhoneNumber" Type="nchar" MaxLength="11" />
+          <Property Name="HouseRegisteredDate" Type="datetime" />
+          <Property Name="HouseVisitedCount" Type="int" />
+          <Property Name="HouseBenefits" Type="nvarchar(max)" />
+          <Property Name="HouseLatitiud" Type="varchar" MaxLength="50" />
+          <Property Name="HouseLongitiud" Type="varchar" MaxLength="50" />
+          <Property Name="HouseGender" Type="tinyint" />
+          <Property Name="HouseSingleBed" Type="int" />
+          <Property Name="HouseDoubleBed" Type="int" />
+          <Property Name="HouseTripleBed" Type="int" />
+          <Property Name="HouseBedOfFour" Type="int" />
+          <Property Name="HouseBedOfSix" Type="int" />
+          <Property Name="HouseBedOfEight" Type="int" />
+          <Property Name="HouseBedOfTen" Type="int" />
+          <Property Name="HouseOwnerId" Type="int" />
+        </EntityType>
+        <EntityType Name="T_State">
+          <Key>
+            <PropertyRef Name="StateCode" />
+          </Key>
+          <Property Name="StateCode" Type="int" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserLastName" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="UserMobileNumber" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="UserStateCode" Type="int" />
+          <Property Name="UserCityCode" Type="int" />
+          <Property Name="UserRole" Type="int" />
+          <Property Name="RegisteredDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_T_City_T_State">
+          <End Role="T_State" Type="Self.T_State" Multiplicity="0..1" />
+          <End Role="T_City" Type="Self.T_City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_State">
+              <PropertyRef Name="StateCode" />
+            </Principal>
+            <Dependent Role="T_City">
+              <PropertyRef Name="StateCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Houses_T_Users">
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
+          <End Role="T_Houses" Type="Self.T_Houses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="T_Houses">
+              <PropertyRef Name="HouseOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbRentalHouseModelStoreContainer">
+          <EntitySet Name="T_City" EntityType="Self.T_City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Houses" EntityType="Self.T_Houses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_State" EntityType="Self.T_State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Users" EntityType="Self.T_Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_T_City_T_State" Association="Self.FK_T_City_T_State">
+            <End Role="T_State" EntitySet="T_State" />
+            <End Role="T_City" EntitySet="T_City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Houses_T_Users" Association="Self.FK_T_Houses_T_Users">
+            <End Role="T_Users" EntitySet="T_Users" />
+            <End Role="T_Houses" EntitySet="T_Houses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbRentalHouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T_City">
+          <Key>
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="CityCode" Type="Int32" Nullable="false" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateCode" Type="Int32" />
+          <NavigationProperty Name="T_State" Relationship="Self.FK_T_City_T_State" FromRole="T_City" ToRole="T_State" />
+        </EntityType>
+        <EntityType Name="T_Houses">
+          <Key>
+            <PropertyRef Name="HouseId" />
+          </Key>
+          <Property Name="HouseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HouseTitle" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="HouseType" Type="Byte" />
+          <Property Name="HouseZone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HouseAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="HouseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HouseFirstPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HouseSecondPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HouseThirdPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HouseForthPicture" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="HouseMortgage" Type="Int32" />
+          <Property Name="HouseRentPrice" Type="Int32" />
+          <Property Name="HousePhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="HouseRegisteredDate" Type="DateTime" Precision="3" />
+          <Property Name="HouseVisitedCount" Type="Int32" />
+          <Property Name="HouseBenefits" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HouseLatitiud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HouseLongitiud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HouseGender" Type="Byte" />
+          <Property Name="HouseSingleBed" Type="Int32" />
+          <Property Name="HouseDoubleBed" Type="Int32" />
+          <Property Name="HouseTripleBed" Type="Int32" />
+          <Property Name="HouseBedOfFour" Type="Int32" />
+          <Property Name="HouseBedOfSix" Type="Int32" />
+          <Property Name="HouseBedOfEight" Type="Int32" />
+          <Property Name="HouseBedOfTen" Type="Int32" />
+          <Property Name="HouseOwnerId" Type="Int32" />
+          <NavigationProperty Name="T_Users" Relationship="Self.FK_T_Houses_T_Users" FromRole="T_Houses" ToRole="T_Users" />
+        </EntityType>
+        <EntityType Name="T_State">
+          <Key>
+            <PropertyRef Name="StateCode" />
+          </Key>
+          <Property Name="StateCode" Type="Int32" Nullable="false" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_City" Relationship="Self.FK_T_City_T_State" FromRole="T_State" ToRole="T_City" />
+        </EntityType>
+        <EntityType Name="T_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserLastName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserMobileNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserStateCode" Type="Int32" />
+          <Property Name="UserCityCode" Type="Int32" />
+          <Property Name="UserRole" Type="Int32" />
+          <Property Name="RegisteredDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="T_Houses" Relationship="Self.FK_T_Houses_T_Users" FromRole="T_Users" ToRole="T_Houses" />
+        </EntityType>
+        <Association Name="FK_T_City_T_State">
+          <End Role="T_State" Type="Self.T_State" Multiplicity="0..1" />
+          <End Role="T_City" Type="Self.T_City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_State">
+              <PropertyRef Name="StateCode" />
+            </Principal>
+            <Dependent Role="T_City">
+              <PropertyRef Name="StateCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Houses_T_Users">
+          <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
+          <End Role="T_Houses" Type="Self.T_Houses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="T_Houses">
+              <PropertyRef Name="HouseOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbRentalHouseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_City" EntityType="Self.T_City" />
+          <EntitySet Name="T_Houses" EntityType="Self.T_Houses" />
+          <EntitySet Name="T_State" EntityType="Self.T_State" />
+          <EntitySet Name="T_Users" EntityType="Self.T_Users" />
+          <AssociationSet Name="FK_T_City_T_State" Association="Self.FK_T_City_T_State">
+            <End Role="T_State" EntitySet="T_State" />
+            <End Role="T_City" EntitySet="T_City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Houses_T_Users" Association="Self.FK_T_Houses_T_Users">
+            <End Role="T_Users" EntitySet="T_Users" />
+            <End Role="T_Houses" EntitySet="T_Houses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbRentalHouseModelStoreContainer" CdmEntityContainer="DbRentalHouseEntities">
+          <EntitySetMapping Name="T_City">
+            <EntityTypeMapping TypeName="DbRentalHouseModel.T_City">
+              <MappingFragment StoreEntitySet="T_City">
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Houses">
+            <EntityTypeMapping TypeName="DbRentalHouseModel.T_Houses">
+              <MappingFragment StoreEntitySet="T_Houses">
+                <ScalarProperty Name="HouseId" ColumnName="HouseId" />
+                <ScalarProperty Name="HouseTitle" ColumnName="HouseTitle" />
+                <ScalarProperty Name="HouseType" ColumnName="HouseType" />
+                <ScalarProperty Name="HouseZone" ColumnName="HouseZone" />
+                <ScalarProperty Name="HouseAddress" ColumnName="HouseAddress" />
+                <ScalarProperty Name="HouseDescription" ColumnName="HouseDescription" />
+                <ScalarProperty Name="HouseFirstPicture" ColumnName="HouseFirstPicture" />
+                <ScalarProperty Name="HouseSecondPicture" ColumnName="HouseSecondPicture" />
+                <ScalarProperty Name="HouseThirdPicture" ColumnName="HouseThirdPicture" />
+                <ScalarProperty Name="HouseForthPicture" ColumnName="HouseForthPicture" />
+                <ScalarProperty Name="HouseMortgage" ColumnName="HouseMortgage" />
+                <ScalarProperty Name="HouseRentPrice" ColumnName="HouseRentPrice" />
+                <ScalarProperty Name="HousePhoneNumber" ColumnName="HousePhoneNumber" />
+                <ScalarProperty Name="HouseRegisteredDate" ColumnName="HouseRegisteredDate" />
+                <ScalarProperty Name="HouseVisitedCount" ColumnName="HouseVisitedCount" />
+                <ScalarProperty Name="HouseBenefits" ColumnName="HouseBenefits" />
+                <ScalarProperty Name="HouseLatitiud" ColumnName="HouseLatitiud" />
+                <ScalarProperty Name="HouseLongitiud" ColumnName="HouseLongitiud" />
+                <ScalarProperty Name="HouseGender" ColumnName="HouseGender" />
+                <ScalarProperty Name="HouseSingleBed" ColumnName="HouseSingleBed" />
+                <ScalarProperty Name="HouseDoubleBed" ColumnName="HouseDoubleBed" />
+                <ScalarProperty Name="HouseTripleBed" ColumnName="HouseTripleBed" />
+                <ScalarProperty Name="HouseBedOfFour" ColumnName="HouseBedOfFour" />
+                <ScalarProperty Name="HouseBedOfSix" ColumnName="HouseBedOfSix" />
+                <ScalarProperty Name="HouseBedOfEight" ColumnName="HouseBedOfEight" />
+                <ScalarProperty Name="HouseBedOfTen" ColumnName="HouseBedOfTen" />
+                <ScalarProperty Name="HouseOwnerId" ColumnName="HouseOwnerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_State">
+            <EntityTypeMapping TypeName="DbRentalHouseModel.T_State">
+              <MappingFragment StoreEntitySet="T_State">
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Users">
+            <EntityTypeMapping TypeName="DbRentalHouseModel.T_Users">
+              <MappingFragment StoreEntitySet="T_Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserMobileNumber" ColumnName="UserMobileNumber" />
+                <ScalarProperty Name="UserStateCode" ColumnName="UserStateCode" />
+                <ScalarProperty Name="UserCityCode" ColumnName="UserCityCode" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

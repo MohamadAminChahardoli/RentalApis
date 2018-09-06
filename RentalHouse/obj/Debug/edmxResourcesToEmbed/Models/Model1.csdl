@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbRentalHouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="T_City">
+    <Key>
+      <PropertyRef Name="CityCode" />
+    </Key>
+    <Property Name="CityCode" Type="Int32" Nullable="false" />
+    <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StateCode" Type="Int32" />
+    <NavigationProperty Name="T_State" Relationship="Self.FK_T_City_T_State" FromRole="T_City" ToRole="T_State" />
+  </EntityType>
+  <EntityType Name="T_Houses">
+    <Key>
+      <PropertyRef Name="HouseId" />
+    </Key>
+    <Property Name="HouseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseTitle" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="HouseType" Type="Byte" />
+    <Property Name="HouseZone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HouseAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="HouseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HouseFirstPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HouseSecondPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HouseThirdPicture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HouseForthPicture" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="HouseMortgage" Type="Int32" />
+    <Property Name="HouseRentPrice" Type="Int32" />
+    <Property Name="HousePhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+    <Property Name="HouseRegisteredDate" Type="DateTime" Precision="3" />
+    <Property Name="HouseVisitedCount" Type="Int32" />
+    <Property Name="HouseBenefits" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HouseLatitiud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="HouseLongitiud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="HouseGender" Type="Byte" />
+    <Property Name="HouseSingleBed" Type="Int32" />
+    <Property Name="HouseDoubleBed" Type="Int32" />
+    <Property Name="HouseTripleBed" Type="Int32" />
+    <Property Name="HouseBedOfFour" Type="Int32" />
+    <Property Name="HouseBedOfSix" Type="Int32" />
+    <Property Name="HouseBedOfEight" Type="Int32" />
+    <Property Name="HouseBedOfTen" Type="Int32" />
+    <Property Name="HouseOwnerId" Type="Int32" />
+    <NavigationProperty Name="T_Users" Relationship="Self.FK_T_Houses_T_Users" FromRole="T_Houses" ToRole="T_Users" />
+  </EntityType>
+  <EntityType Name="T_State">
+    <Key>
+      <PropertyRef Name="StateCode" />
+    </Key>
+    <Property Name="StateCode" Type="Int32" Nullable="false" />
+    <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="T_City" Relationship="Self.FK_T_City_T_State" FromRole="T_State" ToRole="T_City" />
+  </EntityType>
+  <EntityType Name="T_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserLastName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserMobileNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserStateCode" Type="Int32" />
+    <Property Name="UserCityCode" Type="Int32" />
+    <Property Name="UserRole" Type="Int32" />
+    <Property Name="RegisteredDate" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="T_Houses" Relationship="Self.FK_T_Houses_T_Users" FromRole="T_Users" ToRole="T_Houses" />
+  </EntityType>
+  <Association Name="FK_T_City_T_State">
+    <End Role="T_State" Type="Self.T_State" Multiplicity="0..1" />
+    <End Role="T_City" Type="Self.T_City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_State">
+        <PropertyRef Name="StateCode" />
+      </Principal>
+      <Dependent Role="T_City">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_Houses_T_Users">
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="0..1" />
+    <End Role="T_Houses" Type="Self.T_Houses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="T_Houses">
+        <PropertyRef Name="HouseOwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbRentalHouseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="T_City" EntityType="Self.T_City" />
+    <EntitySet Name="T_Houses" EntityType="Self.T_Houses" />
+    <EntitySet Name="T_State" EntityType="Self.T_State" />
+    <EntitySet Name="T_Users" EntityType="Self.T_Users" />
+    <AssociationSet Name="FK_T_City_T_State" Association="Self.FK_T_City_T_State">
+      <End Role="T_State" EntitySet="T_State" />
+      <End Role="T_City" EntitySet="T_City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_Houses_T_Users" Association="Self.FK_T_Houses_T_Users">
+      <End Role="T_Users" EntitySet="T_Users" />
+      <End Role="T_Houses" EntitySet="T_Houses" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

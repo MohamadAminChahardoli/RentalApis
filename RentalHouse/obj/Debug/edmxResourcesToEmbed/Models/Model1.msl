@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbRentalHouseModelStoreContainer" CdmEntityContainer="DbRentalHouseEntities">
+    <EntitySetMapping Name="T_City">
+      <EntityTypeMapping TypeName="DbRentalHouseModel.T_City">
+        <MappingFragment StoreEntitySet="T_City">
+          <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+          <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Houses">
+      <EntityTypeMapping TypeName="DbRentalHouseModel.T_Houses">
+        <MappingFragment StoreEntitySet="T_Houses">
+          <ScalarProperty Name="HouseId" ColumnName="HouseId" />
+          <ScalarProperty Name="HouseTitle" ColumnName="HouseTitle" />
+          <ScalarProperty Name="HouseType" ColumnName="HouseType" />
+          <ScalarProperty Name="HouseZone" ColumnName="HouseZone" />
+          <ScalarProperty Name="HouseAddress" ColumnName="HouseAddress" />
+          <ScalarProperty Name="HouseDescription" ColumnName="HouseDescription" />
+          <ScalarProperty Name="HouseFirstPicture" ColumnName="HouseFirstPicture" />
+          <ScalarProperty Name="HouseSecondPicture" ColumnName="HouseSecondPicture" />
+          <ScalarProperty Name="HouseThirdPicture" ColumnName="HouseThirdPicture" />
+          <ScalarProperty Name="HouseForthPicture" ColumnName="HouseForthPicture" />
+          <ScalarProperty Name="HouseMortgage" ColumnName="HouseMortgage" />
+          <ScalarProperty Name="HouseRentPrice" ColumnName="HouseRentPrice" />
+          <ScalarProperty Name="HousePhoneNumber" ColumnName="HousePhoneNumber" />
+          <ScalarProperty Name="HouseRegisteredDate" ColumnName="HouseRegisteredDate" />
+          <ScalarProperty Name="HouseVisitedCount" ColumnName="HouseVisitedCount" />
+          <ScalarProperty Name="HouseBenefits" ColumnName="HouseBenefits" />
+          <ScalarProperty Name="HouseLatitiud" ColumnName="HouseLatitiud" />
+          <ScalarProperty Name="HouseLongitiud" ColumnName="HouseLongitiud" />
+          <ScalarProperty Name="HouseGender" ColumnName="HouseGender" />
+          <ScalarProperty Name="HouseSingleBed" ColumnName="HouseSingleBed" />
+          <ScalarProperty Name="HouseDoubleBed" ColumnName="HouseDoubleBed" />
+          <ScalarProperty Name="HouseTripleBed" ColumnName="HouseTripleBed" />
+          <ScalarProperty Name="HouseBedOfFour" ColumnName="HouseBedOfFour" />
+          <ScalarProperty Name="HouseBedOfSix" ColumnName="HouseBedOfSix" />
+          <ScalarProperty Name="HouseBedOfEight" ColumnName="HouseBedOfEight" />
+          <ScalarProperty Name="HouseBedOfTen" ColumnName="HouseBedOfTen" />
+          <ScalarProperty Name="HouseOwnerId" ColumnName="HouseOwnerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_State">
+      <EntityTypeMapping TypeName="DbRentalHouseModel.T_State">
+        <MappingFragment StoreEntitySet="T_State">
+          <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Users">
+      <EntityTypeMapping TypeName="DbRentalHouseModel.T_Users">
+        <MappingFragment StoreEntitySet="T_Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+          <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+          <ScalarProperty Name="UserMobileNumber" ColumnName="UserMobileNumber" />
+          <ScalarProperty Name="UserStateCode" ColumnName="UserStateCode" />
+          <ScalarProperty Name="UserCityCode" ColumnName="UserCityCode" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
